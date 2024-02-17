@@ -48,7 +48,7 @@
 
 <form method="POST" action="?/convert" class="">
 <div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-4">
-    <div class="bg-primary-400">
+    <div class="">
         <LightSwitch />
         <div class="flex items-center justify-center gap-4">
 
@@ -127,7 +127,7 @@
     </div>
 
     <!-- Display Results -->
-    <div class="flex flex-col items-center justify-center bg-primary-500">
+    <div class="flex flex-col items-center justify-center">
         {#if !isNaN(amount) && amount > 0}
 
             <p class="text-center text-2xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
@@ -137,7 +137,7 @@
     </div>
 
     <!-- Display Advertisements -->
-    <div class="flex items-end justify-center bg-primary-600">
+    <div class="flex items-end justify-center">
     </div>
 </div>
 </form>
