@@ -1,81 +1,87 @@
 <script>
-    import metadata from '$lib/data/metadata.json';
-    import ratedata from '$lib/data/rate_data.json';
     import { LightSwitch } from '@skeletonlabs/skeleton';
     import Icon from '@iconify/svelte';
+    import { parseExchangeKR, parseExchangeEN, separateWithComma } from '$lib/utils/parser';
 
-    const krwDenominations = ["", "만", "억", "조", "경", "해", "자", "겁"];
-    const usdDenominations = ["", "Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion", "Sextillion", "Septillion"];
-    
+    export let data;
+    const metadata = data.props.metadata
+    let ratedata = data.props.ratedata
+
     let from = "USD";
     let to = "KRW";
-    let amount = 0;
+    let amount = 1;
     let exchange = 0;
+    let useCustomRate;
+    let rate = (ratedata[to] / ratedata[from]);
     let displayEN = [];
     let displayKR = [];
 
     function updateExchange() {
-        let baseAmount = amount / ratedata[from];
-        exchange = (baseAmount * ratedata[to]).toFixed(metadata[to].decimal_digits);
+        exchange = (amount * rate).toFixed(metadata[to].decimal_digits);
         displayEN = parseExchangeEN(exchange);
         displayKR = parseExchangeKR(exchange);
-        // console.log(amount + '\n' + from + '\n' + to + '\n' + baseAmount);
+    }
+
+    function updateRates() {
+        rate = (ratedata[to] / ratedata[from]);
     }
 
     function switchCurrency() {
         [from, to] = [to, from];
+        updateRates();
         updateExchange();
     }
 
-    function parseExchangeEN(amount) {
-        let amountString = Math.trunc(amount).toString();
-
-        let index = 0;
-        let chunks = [];
-        for (let i = amountString.length; i > 0; i -= 3) {
-            let substr = parseInt(amountString.substring(Math.max(i - 3, 0), i)).toString();
-            chunks.unshift(substr + " " + usdDenominations[index]);
-            index++;
+    function toggleCustomRate() {
+        useCustomRate = !useCustomRate;
+        if (!useCustomRate) {
+            updateRates();
+            updateExchange();
         }
-
-        return chunks;
     }
-
-    function parseExchangeKR(amount) {
-        let amountString = Math.trunc(amount).toString();
-        
-        let index = 0;
-        let chunks = [];
-        for (let i = amountString.length; i > 0; i -= 4) {
-            let substr = parseInt(amountString.substring(Math.max(i - 4, 0), i)).toString();
-            chunks.unshift(substr + krwDenominations[index]);
-            index++;
-        }
-
-        return chunks;
-    }
-
 </script>
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4934308997148894"
+     crossorigin="anonymous"></script>
+</head>
+<form method="POST" action="?/convert" class="">
+<div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-4">
+    <div class="bg-primary-400">
+        <LightSwitch />
+        <div class="flex items-center justify-center gap-4">
 
-<LightSwitch />
-<form method="POST" action="?/convert" class="flex flex-col items-center justify-center min-h-screen">
-    <div class="space-y-4 w-full max-w-md mx-auto">
-
-        <div class="flex justify-between gap-4">
             <!-- From Field -->
-            <label class="from block flex-1">
-                <span class="block text-sm font-medium text-gray-700">From</span>
-                <select bind:value={from} on:change={updateExchange} class="select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <label class="w-1/2 flex-col items-center justify-center">
+                <span class="">From</span>
+                <select bind:value={from}
+                        on:change={updateRates}
+                        on:change={updateExchange}
+                        class="select">
+                        <!-- size="3"> -->
                     <option value="USD">USD</option>
                     <option value="KRW">KRW</option>
                     <option value="EUR">EUR</option>
                 </select>
             </label>
 
+            <!-- Switch Button -->
+            <label class="flex-col items-center justify-center">
+                <span class="">&nbsp</span>
+                <button on:click={switchCurrency}
+                        type="button"
+                        class="btn-icon variant-filled">
+                        <Icon icon="mi:switch" />
+                </button>
+            </label>
+
             <!-- To Field -->
-            <label class="to block flex-1">
-                <span class="block text-sm font-medium text-gray-700">To</span>
-                <select bind:value={to} on:change={updateExchange} class="select mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+            <label class="w-1/2 flex-col items-center justify-center">
+                <span class="">To</span>
+                <select bind:value={to}
+                        on:change={updateRates}
+                        on:change={updateExchange}
+                        class="select">
+                        <!-- size="3"> -->
                     <option value="USD">USD</option>
                     <option value="KRW">KRW</option>
                     <option value="EUR">EUR</option>
@@ -83,20 +89,53 @@
             </label>
         </div>        
 
-        <!-- Amount Field -->
-        <label class="amount block">
-            <span class="block text-sm font-medium text-gray-700">Amount</span>
-            <input bind:value={amount} on:input={updateExchange} class="input mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" type="number" placeholder="Amount" />
-        </label>
+        <div class="flex items-center justify-center gap-4">
 
-        <!-- Switch Button -->
-        <div class="flex justify-center">
-            <button on:click={switchCurrency} type="button" class="btn-icon variant-filled"><Icon icon="mi:switch" /></button>
+            <!-- Currency Rate Field -->
+            <label class="w-full flex-col items-center justify-center">
+                <span class="">Exchange Rate</span>
+                <div class="flex items-center justify-center gap-4">
+                    <input bind:value={rate}
+                           disabled={!useCustomRate}
+                           on:input={updateExchange}
+                           type="number"
+                           placeholder="Amount"
+                           class="input" />
+
+                    <!-- Checkbox Daily Currency Rate -->
+                    <label class="flex items-center justify-center text-nowrap">
+                        <input on:click={toggleCustomRate}
+                               type="checkbox"
+                               checked={!useCustomRate}
+                               class="checkbox" />
+                        <span class="ml-2">Use Daily Rate</span>
+                    </label>
+                </div>
+            </label>
         </div>
 
-        <!-- Display Results -->
-        <p class="text-center">{metadata[to].symbol + " " + exchange}</p>
-        <p class="text-center mt-6">{displayEN + metadata[to].code}</p>
-        <p class="text-center">{displayKR + " " +  metadata[to].code}</p>
+        <div class="flex-col items-center justify-center">
+            <!-- Amount Field -->
+            <span class="">Exchange Rate</span>
+            <div class="w-full input-group input-group-divider grid-cols-[auto_1fr_auto]">
+                <div>{metadata[from].symbol}</div>
+                    <input type="number" bind:value={amount} on:input={updateExchange} placeholder="Amount" />
+            </div>
+        </div>
     </div>
+
+    <!-- Display Results -->
+    <div class="flex flex-col items-center justify-center bg-primary-500">
+        {#if !isNaN(amount) && amount > 0}
+
+            <p class="text-center text-2xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
+            <p class="text-center mt-6">{displayEN + metadata[to].code}</p>
+            <p class="text-center">{displayKR + " " +  metadata[to].code}</p>
+        {/if}
+    </div>
+
+    <!-- Display Advertisements -->
+    <div class="flex items-end justify-center bg-primary-600">
+    </div>
+</div>
 </form>
