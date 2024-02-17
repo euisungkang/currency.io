@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "routes": [
+        {
+            "src": "/ads.txt",
+            "dest": "/static/ads.txt",
+            "headers": {
+                "Content-Type": "text/plain"
+            }
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/$1"
+        }
+    ]
+}
