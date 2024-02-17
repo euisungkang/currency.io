@@ -40,13 +40,15 @@
         }
     }
 </script>
+
 <head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4934308997148894"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4934308997148894"
+         crossorigin="anonymous"></script>
 </head>
+
 <form method="POST" action="?/convert" class="">
 <div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-4">
-    <div class="">
+    <div class="bg-primary-400">
         <LightSwitch />
         <div class="flex items-center justify-center gap-4">
 
@@ -125,7 +127,7 @@
     </div>
 
     <!-- Display Results -->
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center bg-primary-500">
         {#if !isNaN(amount) && amount > 0}
 
             <p class="text-center text-2xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
@@ -135,7 +137,7 @@
     </div>
 
     <!-- Display Advertisements -->
-    <div class="flex items-end justify-center">
+    <div class="flex items-end justify-center bg-primary-600">
     </div>
 </div>
 </form>
