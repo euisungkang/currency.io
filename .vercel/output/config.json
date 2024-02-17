@@ -8,9 +8,5 @@
                 "Content-Type": "text/plain"
             }
         },
-        {
-            "src": "/(.*)",
-            "dest": "/$1"
-        }
     ]
 }
