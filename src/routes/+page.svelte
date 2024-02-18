@@ -3,7 +3,7 @@
     import type { TableSource } from '@skeletonlabs/skeleton';
     import Icon from '@iconify/svelte';
     import { parseExchangeKR, parseExchangeEN, separateWithComma } from '$lib/utils/parser';
-    import { Us, Kr, Eu } from 'svelte-flag-icons';
+    import { Us, Kr, Eu, Jp } from 'svelte-flag-icons';
 
     export let data;
     const metadata = data.props.metadata
@@ -17,6 +17,7 @@
     let rate = (ratedata[to] / ratedata[from]);
     let displayEN = [];
     let displayKR = [];
+    let inputField;
 
     let date = new Date();
     let dateDisplay = date.getFullYear() + "." + date.getMonth() + "." + date.getDate();
@@ -33,6 +34,7 @@
 
     function switchCurrency() {
         [from, to] = [to, from];
+        useCustomRate = false;
         updateRates();
         updateExchange();
     }
@@ -52,14 +54,19 @@
     const flagMap = {
         "USD": Us,
         "EUR": Eu,
-        "KRW": Kr
+        "KRW": Kr,
+        "JPY": Jp,
     };
 
     const rateTableData = [];
 
-    let position = 1;
+    let position = 2;
     for (const [k, v] of Object.entries(metadata)) {
-        rateTableData.push({ position: position++, code: k, symbol: v.symbol, rate: ratedata[k].toFixed(2) }); 
+        if (k == "USD") {
+            rateTableData.push({ position: 1, code: k, symbol: v.symbol, rate: "1" });
+        } else {
+            rateTableData.push({ position: position++, code: k, symbol: v.symbol, rate: Math.trunc(ratedata[k]*100)/100 + ".." }); 
+        }
     }
 
     const rateTable: TableSource = {
@@ -76,22 +83,23 @@
 
 <form method="POST" action="?/convert" class="">
 <div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-12">
-    <LightSwitch class="absolute"/>
+    <LightSwitch class="absolute top-5 left-5"/>
 
         <div class="grid grid-cols-3 space-x-8">
 
-            <div class="flex flex-col items-center justify-center gap-4">
-                <div class="flex justify-center  items-center w-full">
-                    <h1 class="text-xl">Base Currency: <b>USD<b/></h1>
-                    <svelte:component this={flagMap["USD"]} class="ml-2 w-10 h-10" />
+            <div class="flex flex-col items-center justify-center gap-2">
+                <div class="flex justify-start items-center w-full">
+                    <h1 class="text-l text-primary-800">Base Currency: <b>USD<b/></h1>
+                    <!-- <svelte:component this={flagMap["USD"]} class="ml-2 w-10" /> -->
                 </div>
-                <Table source={rateTable} class="w-full" />
-                <p class="text-sm text-primary-800">*exchange rates last updated on {dateDisplay}</p>
+                <Table source={rateTable} class="table-compact" />
+                <p class="text-sm place-self-start text-primary-800">*exchange rates last updated on {dateDisplay}</p>
             </div>
 
 
             <div class="grid grid-rows-1fr-auto">
-                <div class="flex flex-col items-center justify-end p-4">
+                <div class="flex flex-col items-center justify-end p-2">
+                    <h1 class="text-xl mb-2"><b>Exchange</b></h1>
                     <div class="card p-6 flex justify-between items-center w-full relative z-10">
                         <svelte:component this={flagMap[from]} class="w-10 h-10" />
                         <select bind:value={from}
@@ -101,6 +109,7 @@
                             <option value="USD">USD</option>
                             <option value="KRW">KRW</option>
                             <option value="EUR">EUR</option>
+                            <option value="JPY">JPY</option>
                         </select>
                     </div>
 
@@ -119,6 +128,7 @@
                             <option value="USD">USD</option>
                             <option value="KRW">KRW</option>
                             <option value="EUR">EUR</option>
+                            <option value="JPY">JPY</option>
                         </select>
                     </div>
                 </div>
@@ -153,25 +163,28 @@
 
             <!-- Amount Field --> 
             <div class="flex flex-col items-center justify-center">
-                <!-- <span class="">Amount</span> -->
                 <div class="w-full input-group input-group-divider grid-cols-[auto_1fr_auto]">
                     <div>{metadata[from].symbol}</div>
-                        <input type="number" bind:value={amount} on:input={updateExchange} placeholder="Amount" />
+                        <input type="number" bind:value={amount} bind:this={inputField} on:input={updateExchange} placeholder="Amount" />
                 </div>
             </div>
         </div>
 
 
     <!-- Display Results -->
-    <div class="flex flex-col items-center justify-start">
+    <div class="flex flex-col items-center justify-center">
         {#if !isNaN(amount) && amount > 0}
-            <p class="typed text-center text-3xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
+            <p class="text-center text-3xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
             <p class="text-center text-xl mt-6">{displayEN + metadata[to].code}</p>
             <p class="text-center text-xl">{displayKR + " " +  metadata[to].code}</p>
         {:else}
-            <p class="typed text-center text-3xl">&nbsp</p>
+        <button type="button" on:click={inputField.focus()}>
+            <div>
+                <p class="typed text-center text-3xl text-primary-800">type an amount</p>
+            </div>
             <p class="text-center text-xl mt-6">&nbsp</p>
             <p class="text-center text-xl">&nbsp</p>
+        </button>
         {/if}
     </div>
 
@@ -186,8 +199,14 @@
         overflow: hidden;
         border-right: .05em solid theme('colors.primary.800');
         white-space: nowrap;
+        width: 0%;
         animation:
+            typing 2.0s forwards,
             blink 1.5s infinite;
+    }
+    @keyframes typing {
+        from { width: 0% }
+        to { width: 100% }
     }
     @keyframes blink {
         from { border-right-color: theme('colors.primary.800'); }
