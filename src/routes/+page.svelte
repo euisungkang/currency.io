@@ -86,8 +86,8 @@
         <LightSwitch class="absolute top-5 left-5"/>
 
         <div class="flex flex-row items-center absolute bottom-5 right-5">
-            <p class="text-sm text-primary-800 mr-2">developed and maintained as an open-source project</p>
-            <a href="https://github.com/euisungkang/currency.io" target="_blank">
+            <p class="text-sm text-primary-800 mr-2 inline-block">developed and maintained as an open-source project</p>
+            <a href="https://github.com/euisungkang/currency.io" target="_blank" class="inline-block">
                 <Icon icon="mdi:github" class="w-10 h-10" />
             </a>
         </div>
