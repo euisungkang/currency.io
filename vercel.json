@@ -1,0 +1,15 @@
+{
+  "version": 3,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/refresh.js",
+      "schedule": "* * * * *"
+    }
+  ]
+}
