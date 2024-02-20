@@ -44,5 +44,6 @@
     "@everapi/freecurrencyapi-js": "^1.0.1",
     "@vercel/analytics": "^1.2.0",
     "vercel": "^33.4.1"
-  }
+  },
+  "prepare": "svelte-kit sync"
 }
