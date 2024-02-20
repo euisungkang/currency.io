@@ -1,11 +1,6 @@
 {
   "version": 2,
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
+  "framework": "sveltekit",
   "crons": [
     {
       "path": "/api/refresh",
