@@ -85,6 +85,10 @@
 <div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-12">
     <LightSwitch class="absolute top-5 left-5"/>
 
+    <a href="https://github.com/euisungkang/currency.io" target="_blank">
+        <Icon icon="mdi:github" class="absolute bottom-5 right-5 w-10 h-10" />
+    </a>
+
         <div class="grid grid-cols-3 space-x-8">
 
             <div class="flex flex-col items-center justify-center gap-2">
