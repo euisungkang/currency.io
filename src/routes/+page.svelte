@@ -83,18 +83,20 @@
 
 <form method="POST" action="?/convert" class="">
 <div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-12">
-    <LightSwitch class="absolute top-5 left-5"/>
+        <LightSwitch class="absolute top-5 left-5"/>
 
-    <a href="https://github.com/euisungkang/currency.io" target="_blank">
-        <Icon icon="mdi:github" class="absolute bottom-5 right-5 w-10 h-10" />
-    </a>
+        <div class="flex flex-row items-center absolute bottom-5 right-5">
+            <p class="text-sm text-primary-800 mr-2">developed and maintained as an open-source project</p>
+            <a href="https://github.com/euisungkang/currency.io" target="_blank">
+                <Icon icon="mdi:github" class="w-10 h-10" />
+            </a>
+        </div>
 
         <div class="grid grid-cols-3 space-x-8">
 
             <div class="flex flex-col items-center justify-center gap-2">
                 <div class="flex justify-start items-center w-full">
                     <h1 class="text-l text-primary-800">Base Currency: <b>USD<b/></h1>
-                    <!-- <svelte:component this={flagMap["USD"]} class="ml-2 w-10" /> -->
                 </div>
                 <Table source={rateTable} class="table-compact" />
                 <p class="text-sm place-self-start text-primary-800">*exchange rates last updated on {dateDisplay}</p>
