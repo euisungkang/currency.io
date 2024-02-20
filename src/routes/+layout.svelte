@@ -6,6 +6,6 @@
     inject({ mode: dev ? 'development' : 'production' });
 </script>
 <svelte:head>
-    <link rel="icon" type="image/svg" href={"/favicon.png"} />
+    <link rel="icon" type="image/svg" href={"%sveltekit.assets%/favicon.png"} />
 </svelte:head>
 <slot />
