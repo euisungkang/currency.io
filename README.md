@@ -48,7 +48,8 @@ currency.io 🌐 is not just a website; it's a **vision** 🌟✨. A **marvel** 
 ### 2. Most currency converters focus on having the largest selection of currencies.
 currency.io is just a lightweight converter for English/Korean speakers.
 
-### 3. The ♥️ loml ♥️ said she wanted a tool to solve problems 1 and 2.
+### 3. A very special someone ♥️ said she wanted a tool to solve problems 1 and 2
+so i get the job done. no questions asked.
 
 ### 4. Last, but not least, curiosity
 javascript (node, express, angular, react) has been a core part of my journey as a developer; however, work shifted my focus to other places like Java Spring, and python. I've watched the emergence of some really exciting JS frameworks such as Next, Nest, and particularly Svelte/Sveltekit. During my spare time on the weekends, I took up the challenge to explore the newest technologies in the rapidly changing JS world. Plus, I get to make the person who originally requested this project happy 🙂.
