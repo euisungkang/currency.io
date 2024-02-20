@@ -180,16 +180,28 @@
     <!-- Display Results -->
     <div class="flex flex-col items-center justify-center">
         {#if !isNaN(amount) && amount > 0}
-            <p class="text-center text-3xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
-            <p class="text-center text-xl mt-6">{displayEN + metadata[to].code}</p>
-            <p class="text-center text-xl">{displayKR + " " +  metadata[to].code}</p>
+            <p class="text-center text-4xl">{metadata[to].symbol + " " + separateWithComma(exchange)}</p>
+            <p class="text-center text-xl mt-10">
+                {#each displayEN as { val, den }, i}
+                    {val} {den}
+                    {#if i != displayEN.length - 1},&nbsp{/if}
+                {/each}
+                {metadata[to].symbol}
+            </p>
+            <p class="text-center text-xl mt-2">
+                {#each displayKR as { val, den }, i}
+                    {val} {den}
+                    {#if i != displayKR.length - 1},&nbsp{/if}
+                {/each}
+            {metadata[to].symbol}
+            </p>
         {:else}
         <button type="button" on:click={inputField.focus()}>
             <div>
-                <p class="typed text-center text-3xl text-primary-800">type an amount</p>
+                <p class="typed text-center text-4xl text-primary-800">type an amount</p>
             </div>
-            <p class="text-center text-xl mt-6">&nbsp</p>
-            <p class="text-center text-xl">&nbsp</p>
+            <p class="text-center text-xl mt-10">&nbsp</p>
+            <p class="text-center text-xl mt-2">&nbsp</p>
         </button>
         {/if}
     </div>

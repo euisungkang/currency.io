@@ -8,7 +8,7 @@ export function parseExchangeEN(amount) {
     const chunks = [];
     for (let i = amountString.length; i > 0; i -= 3) {
         let substr = parseInt(amountString.substring(Math.max(i - 3, 0), i)).toString();
-        chunks.unshift(substr + " " + usdDenominations[index]);
+        chunks.unshift({ val: substr, den: usdDenominations[index]});
         index++;
     }
 
@@ -22,7 +22,7 @@ export function parseExchangeKR(amount) {
     const chunks = [];
     for (let i = amountString.length; i > 0; i -= 4) {
         let substr = parseInt(amountString.substring(Math.max(i - 4, 0), i)).toString();
-        chunks.unshift(substr + krwDenominations[index]);
+        chunks.unshift({ val: substr, den: krwDenominations[index]});
         index++;
     }
 
