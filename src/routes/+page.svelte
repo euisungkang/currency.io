@@ -20,7 +20,7 @@
     let inputField;
 
     let date = new Date();
-    let dateDisplay = date.getFullYear() + "." + date.getMonth() + "." + date.getDate();
+    let dateDisplay = date.toLocaleDateString();
 
     function updateExchange() {
         exchange = (amount * rate).toFixed(metadata[to].decimal_digits);
