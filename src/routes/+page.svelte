@@ -85,10 +85,10 @@
 <div class="h-screen grid grid-rows-1fr-auto-auto max-w-[%75] container mx-auto p-12">
         <LightSwitch class="absolute top-5 left-5"/>
 
-        <div class="flex flex-row items-center absolute bottom-5 right-5">
-            <p class="text-sm text-primary-800 mr-2 inline-block">developed and maintained as an open-source project</p>
-            <a href="https://github.com/euisungkang/currency.io" target="_blank" class="inline-block">
-                <Icon icon="mdi:github" class="w-10 h-10" />
+        <div class="absolute bottom-5 right-5">
+            <a href="https://github.com/euisungkang/currency.io" target="_blank" class="flex flex-row items-center">
+                <p class="text-sm text-primary-800 mr-2">developed and maintained as an open-source project</p>
+                <Icon icon="mdi:github" class="w-12 h-12" />
             </a>
         </div>
 
