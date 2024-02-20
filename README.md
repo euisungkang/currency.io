@@ -38,7 +38,7 @@
 # Overview
 currency.io 🌐 is not just a website; it's a **vision** 🌟✨. A **marvel** in fintech 💰🚀, crafted with the advanced SvelteKit framework 🛠️💻 and **strategically** hosted on Vercel 🌍📡 for **supreme**, **unparalleled** innovation 🚀🌈, employing a **serverless architecture** ☁️🔄, and harnessing the **bleeding edge** 🩸✂️ dual power of **Static Site Generation (SSG)** 🏗️💥 and **Server-Side Rendering (SSR)** 🖥️⚡ for an incredib.........
 
-........ it's just a currency converter I whipped up 😬
+........ it's just a currency converter I whipped up 😬<br>
 https://donijowa.vercel.app
 # Problem
 ### 1. Converting numbers in Korean is confusing...
