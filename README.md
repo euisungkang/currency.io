@@ -1,5 +1,4 @@
 <h1 align="center">
-  <br>
     <a href="https://github.com/euisungkang/currency.io"><img src="https://media1.tenor.com/m/-OATBuvUe60AAAAC/money-sniff.gif" alt="money"></a>
   <br>
   currency.io
