@@ -99,7 +99,7 @@
                     <h1 class="text-l text-primary-800">Base Currency: <b>USD<b/></h1>
                 </div>
                 <Table source={rateTable} class="table-compact" />
-                <p class="text-sm place-self-start text-primary-800">*exchange rates last updated on {dateDisplay}</p>
+                <p class="text-sm place-self-start text-primary-800"><i>*Exchange rates last updated on {dateDisplay}</i></p>
             </div>
 
 
