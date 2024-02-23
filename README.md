@@ -55,8 +55,8 @@ so i get the job done. no questions asked.
 javascript (node, express, angular, react) has been a core part of my journey as a developer; however, work shifted my focus to other places like Java Spring, and python. I've watched the emergence of some really exciting JS frameworks such as Next, Nest, and particularly Svelte/Sveltekit. During my spare time on the weekends, I took up the challenge to explore the newest technologies in the rapidly changing JS world. Plus, I get to make the person who originally requested this project happy 🙂.
    
 # Stack
-1. Javascript + bit of Typescript
-2. Sveltekit
+1. Sveltekit
+2. Typescript + Javascript
 3. Vercel
 
 # License
