@@ -20,7 +20,7 @@
     let inputField;
 
     let date = new Date();
-    let dateDisplay = date.toLocaleDateString();
+    let dateDisplay = date.toLocaleDateString('ko-KR');
 
     function updateExchange() {
         exchange = (amount * rate).toFixed(metadata[to].decimal_digits);
